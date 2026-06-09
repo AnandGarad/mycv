@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anand garad Resume</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <style>
+    :root {
+      --bg: #f3f6f4;
+      --paper: #ffffff;
+      --ink: #1d2523;
+      --muted: #64716d;
+      --line: #d9e1de;
+      --accent: #0f7f75;
+      --accent-strong: #0a5d56;
+      --accent-soft: #dff3ef;
+      --chip: #edf4f2;
+      --shadow: 0 20px 60px rgba(28, 46, 42, 0.14);
+    }
+
+    body.dark {
+      --bg: #151917;
+      --paper: #202724;
+      --ink: #eef5f2;
+      --muted: #a8b7b2;
+      --line: #34403d;
+      --accent: #50d4c4;
+      --accent-strong: #a2fff3;
+      --accent-soft: #193733;
+      --chip: #28332f;
+      --shadow: 0 20px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    button,
+    a,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      padding: 28px;
+    }
+
+    .topbar {
+      align-items: center;
+      display: flex;
+      gap: 14px;
+      justify-content: space-between;
+      margin: 0 auto 18px;
+      max-width: 1180px;
+    }
+
+    .brand {
+      align-items: center;
+      display: flex;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      align-items: center;
+      background: var(--accent);
+      border-radius: 8px;
+      color: #ffffff;
+      display: grid;
+      font-size: 18px;
+      font-weight: 800;
+      height: 42px;
+      place-items: center;
+      width: 42px;
+    }
+
+    .brand h1 {
+      font-size: 20px;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .brand p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 2px 0 0;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      align-items: center;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      cursor: pointer;
+      display: inline-flex;
+      gap: 8px;
+      min-height: 38px;
+      /* padding: 8px 12px; */
+      transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
+    }
+
+    .btn:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .layout {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 290px minmax(0, 1fr);
+      margin: 0 auto;
+      max-width: 1180px;
+    }
+
+    .sidebar,
+    .resume {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar {
+      border-radius: 8px;
+      height: fit-content;
+      padding: 18px;
+      position: sticky;
+      top: 18px;
+    }
+
+    .portrait {
+      align-items: center;
+      background:
+        radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.48), transparent 22%),
+        linear-gradient(135deg, #0f7f75, #244943 55%, #d4903c);
+      border-radius: 8px;
+      color: #ffffff;
+      display: flex;
+      height: 120px;
+      justify-content: center;
+      margin-bottom: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .portrait::before {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      content: "";
+      height: 48px;
+      position: absolute;
+      top: 23px;
+      width: 48px;
+    }
+
+    .portrait::after {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50% 50% 0 0;
+      bottom: -8px;
+      content: "";
+      height: 64px;
+      position: absolute;
+      width: 96px;
+    }
+
+    .sidebar h2 {
+      font-size: 14px;
+      letter-spacing: 0;
+      margin: 20px 0 10px;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: grid;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav a {
+      border-radius: 8px;
+      color: var(--muted);
+      padding: 8px 10px;
+      text-decoration: none;
+    }
+
+    .nav a.active,
+    .nav a:hover {
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+    }
+
+    #btn a {
+      border-radius: 8px;
+      background: rgb(41, 194, 183);
+      color: rgb(255, 255, 255);
+      padding: 8px 20px;
+      text-decoration: none;
+    }
+
+    #btn a:hover {
+      background: rgb(34, 75, 4);
+    }
+
+    .contact-list,
+    .mini-list {
+      display: grid;
+      gap: 9px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .contact-list li,
+    .mini-list li {
+      color: var(--muted);
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .progress {
+      background: var(--chip);
+      border-radius: 999px;
+      height: 8px;
+      margin-top: 5px;
+      overflow: hidden;
+    }
+
+    .progress span {
+      background: var(--accent);
+      display: block;
+      height: 100%;
+      width: var(--value);
+    }
+
+    .resume {
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .hero {
+      background:
+        linear-gradient(130deg, rgba(15, 127, 117, 0.96), rgba(23, 52, 48, 0.92)),
+        url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80");
+      background-position: center;
+      background-size: cover;
+      color: #ffffff;
+      padding: 48px;
+    }
+
+    .hero-grid {
+      align-items: end;
+      display: grid;
+      gap: 24px;
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .eyebrow {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      padding: 5px 10px;
+    }
+
+    .hero h2 {
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.02;
+      margin: 0;
+      max-width: 760px;
+    }
+
+    .hero p {
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 17px;
+      margin: 16px 0 0;
+      max-width: 720px;
+    }
+
+    .score {
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 8px;
+      min-width: 160px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .score strong {
+      display: block;
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .score span {
+      color: rgba(255, 255, 255, 0.8);
+      display: block;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .resume-body {
+      display: grid;
+      gap: 0;
+      padding: 42px 48px 48px;
+    }
+
+    .section {
+      border-bottom: 1px solid var(--line);
+      padding: 28px 0;
+    }
+
+    .section:first-child {
+      padding-top: 0;
+    }
+
+    .section:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .section-header {
+      align-items: baseline;
+      display: flex;
+      gap: 14px;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .section h3 {
+      font-size: 21px;
+      margin: 0;
+    }
+
+    .section-number {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .summary {
+      color: var(--muted);
+      font-size: 16px;
+      margin: 0;
+      max-width: 840px;
+    }
+
+    .item {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 150px minmax(0, 1fr);
+      padding: 20px 0;
+    }
+
+    .item:first-of-type {
+      padding-top: 0;
+    }
+
+    .item:last-child {
+      padding-bottom: 0;
+    }
+
+    .date {
+      color: var(--accent-strong);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .item h4 {
+      font-size: 18px;
+      margin: 0 0 4px;
+    }
+
+    .item .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 9px;
+    }
+
+    .item p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .bullets {
+      color: var(--muted);
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .chips li {
+      background: var(--chip);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink);
+      font-size: 14px;
+      padding: 6px 10px;
+    }
+
+    .projects {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .project-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .project-card h4 {
+      font-size: 17px;
+      margin: 0 0 8px;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+
+    .editable {
+      outline: 2px solid transparent;
+      outline-offset: 3px;
+      transition: outline-color 160ms ease, background 160ms ease;
+    }
+
+    body.editing .editable {
+      background: rgba(15, 127, 117, 0.08);
+      border-radius: 4px;
+      outline-color: rgba(15, 127, 117, 0.2);
+    }
+
+    .toast {
+      background: var(--ink);
+      border-radius: 8px;
+      bottom: 24px;
+      color: var(--paper);
+      display: none;
+      font-weight: 700;
+      left: 50%;
+      padding: 10px 14px;
+      position: fixed;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .skill {
+      list-style-type: none;
+    }
+
+    .skill li {
+      display: inline;
+      margin: 12px 8px;
+      /* padding: 6px 5px; */
+      background: var(--chip);
+    }
+
+    @media (max-width: 920px) {
+      .app-shell {
+        padding: 18px;
+      }
+
+      .topbar,
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .actions {
+        justify-content: flex-start;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .hero,
+      .resume-body {
+        padding: 30px;
+      }
+
+      .hero-grid,
+      .item,
+      .projects {
+        grid-template-columns: 1fr;
+      }
+
+      .score {
+        max-width: 200px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .app-shell {
+        padding: 10px;
+      }
+
+      .brand h1 {
+        font-size: 18px;
+      }
+
+      .btn {
+        flex: 1 1 auto;
+        justify-content: center;
+      }
+
+
+
+      .hero,
+      .resume-body {
+        padding: 22px;
+      }
+
+      .hero h2 {
+        font-size: 34px;
+      }
+
+      .section-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+
+      .app-shell {
+        padding: 0;
+      }
+
+      .topbar,
+      .sidebar,
+      .toast {
+        display: none !important;
+      }
+
+      .layout {
+        display: block;
+        max-width: none;
+      }
+
+      .resume {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .hero {
+        background: #0f7f75 !important;
+        padding: 32px 40px;
+      }
+
+      .resume-body {
+        padding: 30px 40px;
+      }
+
+      .section {
+        break-inside: avoid;
+      }
+
+
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">CV</div>
+        <div>
+          <h1> ANAND SHIVAJI GARAD</h1>
+          <p>Resume of Digital marketing & Web Developer</p>
+        </div>
+      </div>
+      <div class="actions">
+        <!-- <button class="btn" id="themeToggle" type="button" aria-label="Toggle color theme">Theme</button> -->
+        <div class="btn" id="btn"><a href="mailto:anandcohost@gmail.com">Connect Me</a></div>
+        <button class="btn primary" id="printBtn" type="button" aria-label="Print resume">Print PDF</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar" aria-label="Resume details">
+        <!-- <div class="portrait" aria-hidden="true"></div> -->
+        <h2>Sections</h2>
+        <nav class="nav">
+          <a href="#profile" class="active">Profile</a>
+          <a href="#skills">Skills</a>
+          <a href="#education">Education</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+
+        </nav>
+
+        <h2>Contact & Address</h2>
+        <ul class="contact-list">
+          <li class="editable"> Email: anandcohost@gmail.com</li>
+          <li class="editable">Mob: 9130820368</li>
+          <li class="editable">Present Address: N-7 CIDCO, Chhatrapati Sambhajinagar, Maharashtra</li>
+          <li class="editable">Date of Birth: 21 May 1995</li>
+          <li class="editable">Gender: Male</li>
+          <li class="editable">Marital Status: Unmarried</li>
+          <li class="editable">Languages: English, Hindi, Marathi</li>
+          <li class="editable">Permanent Address: At. Singona, Tq. Partur, Dist. Jalna, Maharashtra - 431501</li>
+          <!-- <li class="editable">github.com/anandshivajigarad</li>
+          <li class="editable">linkedin.com/in/anandshivajigarad</li> -->
+        </ul>
+
+        <h2>KEY STRENGTHS</h2>
+        <ul class="mini-list">
+          <!-- <li>Frontend Architecture<div class="progress" aria-hidden="true"><span style="--value: 94%"></span></div>
+          </li>
+          <li>API Integration<div class="progress" aria-hidden="true"><span style="--value: 88%"></span></div>
+          </li>
+          <li>Performance Tuning<div class="progress" aria-hidden="true"><span style="--value: 82%"></span></div>
+          </li> -->
+          <li class="editable">Strong problem-solving skills and attention to detail.</li>
+          <li class="editable">Excellent communication and interpersonal skills.</li>
+          <li class="editable">Ability to work independently and as part of a team.</li>
+          <li class="editable">Adaptability and willingness to learn new technologies and tools.</li>
+        </ul>
+      </aside>
+
+      <article class="resume">
+        <section class="hero">
+          <div class="hero-grid" id="profile">
+            <div>
+              <span class="eyebrow editable">Digital Marketing & Web Developer</span>
+              <h2 class="editable">Mr.ANAND GARAD</h2>
+              <p class="editable">BCA graduate with experience in Digital Marketing, Administrative Operations,
+                Technical Support, Computer Operations, and Customer Service. Skilled in digital campaigns, social media
+                management, content creation, video editing, office productivity tools, and AI-powered productivity
+                solutions. Seeking opportunities in Digital Marketing, IT Support, Back Office Operations, and
+                Administrative roles.</p>
+            </div>
+            <div class="score">
+              <strong class="editable">2</strong>
+              <span>Years Experience</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="resume-body">
+          <section class="section" id="skills">
+            <div class="section-header">
+              <h3>CORE SKILLS</h3>
+              <!-- <span class="section-number">01</span> -->
+            </div>
+            <div class="summary editable">
+              <ul class="chips">
+                <li class=" editable">Digital Marketing</li>
+                <li class="editable">Social Media Marketing</li>
+                <li class="editable">Video Editing</li>
+                <li class="editable">Canva</li>
+                <li class="editable">Veed.io</li>
+                <li class="editable">Clipchamp</li>
+                <li class="editable">AI Tools (ChatGPT, Google Gemini)</li>
+                <li class="editable">MS Excel</li>
+                <li class="editable">MS Word</li>
+                <li class="editable">PowerPoint</li>
+                <li class="editable">Data Management</li>
+                <li class="editable">Computer Operations</li>
+                <li class="editable">Technical Support</li>
+                <li class="editable">Customer Service</li>
+                <li class="editable">Web Design Fundamentals</li>
+                <li class="editable">Documentation & Reporting</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Skill section -->
+          <section class="section">
+            <div class="section-header">
+              <h3> Programming Skills</h3>
+              <!-- <span class="section-number"></span> -->
+            </div>
+            <ul class="chips">
+              <li class="editable">HTML5</li>
+              <li class="editable">CSS3</li>
+              <li class="editable">JavaScript</li>
+              <li class="editable">jQuery</li>
+              <li class="editable">Bootstrap</li>
+              <li class="editable">MongoDB</li>
+              <li class="editable">Node.js</li>
+              <li class="editable">PHP</li>
+              <li class="editable">WordPress</li>
+            </ul>
+          </section>
+
+          <!-- Education section -->
+          <section class="section" id="education">
+            <div class="section-header">
+              <h3>Education</h3>
+              <!-- <span class="section-number">05</span> -->
+            </div>
+            <div class="item">
+              <div class="date editable"> Graduation</div>
+              <div>
+                <h4 class="editable">B.C.A. Bachelor of Computer Applications</h4>
+                <div class="meta editable">Shivraj College of BBA And BCA – BAMU University, 2021</div>
+                </p>
+              </div>
+            </div>
+            <div class="item">
+              <div class="date editable"> Primary & Higher Education</div>
+              <div>
+                <h4 class="editable">SSC – Maharashtra State Board, 2014</h4>
+                <div class="meta editable">S.V.V School Partur, Maharashtra State Board, 2014</div>
+                </p>
+                <h4 class="editable">HSC – Maharashtra State Board, 2017 </h4>
+                <div class="meta editable">L.B.S.H. Jr, Sr. College Partur, Maharashtra State Board, 2016</div>
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Experience section -->
+          <section class="section" id="experience">
+            <div class="section-header">
+              <h3>Experience</h3>
+              <!-- <span class="section-number">02</span> -->
+            </div>
+
+            <div class="item">
+              <div class="date editable"> May-2023</div>
+              <div>
+                <h4 class="editable">Technical Support Executive – Airtel BPO (6 Months)</h4>
+                <p class="editable">
+                  Provided customer support and technical assistance.
+                  Resolved service-related issues while maintaining quality standards.
+                </p>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="date editable">Feb-2024- JAN 2025</div>
+              <div>
+                <h4 class="editable">Administrative Executive – Nalanda Bahuddeshiya Sanstha, Jalna</h4>
+                <p class="editable">
+                  Managed office administration, documentation, records, and computer operations.
+                  Coordinated day-to-day office activities and maintained reports.
+                </p>
+              </div>
+            </div>
+            <div class="item">
+              <div class="date editable">Feb 2025 - Aug 2025</div>
+              <div>
+                <h4 class="editable">Digital Marketing Executive – PKC Digital </h4>
+                <div class="meta editable"> </div>
+                <p>
+                <ul class="bullets">
+                  <li class="editable">Managed social media content and digital marketing activities.</li>
+                  <li class="editable">Created promotional creatives and marketing materials using Canva and AI tools.
+                  </li>
+                  <li class="editable">Assisted in campaign execution, audience engagement, and online branding.</li>
+                  <li class="editable">Performed basic video editing using Veed.io and Clipchamp.</li>
+                  <li class="editable">Supported lead generation and customer communication initiatives.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="date editable">September 2025 -May 2026</div>
+              <div>
+                <h4 class="editable">Digital Marketing Executive–Indus informatic Pune </h4>
+                <div class="meta editable"> </div>
+                <p>
+                <ul class="bullets">
+                  <li class="editable">Managed social media content and digital marketing activities.</li>
+                  <li class="editable">Created promotional creatives and marketing materials using Canva and AI tools.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Portfolio section -->
+          <section class="section" id="projects">
+            <div class="section-header">
+              <h3>Projects</h3>
+              <!-- <span class="section-number">04</span> -->
+            </div>
+            <div class="projects">
+              <div class="project-card">
+                <h4 class="editable">Developer Portfolio CMS</h4>
+                <p class="editable">A fast portfolio manager with markdown editing, image uploads, SEO controls and
+                  deploy previews.</p>
+                <ul class="chips">
+                  <li class="editable">Next.js</li>
+                  <li class="editable">Node</li>
+                  <li class="editable">PostgreSQL</li>
+                </ul>
+              </div>
+              <div class="project-card">
+                <h4 class="editable">Analytics UI Kit</h4>
+                <p class="editable">Reusable dashboard components for charts, filters, tables, alerts and export
+                  workflows.</p>
+                <ul class="chips">
+                  <li class="editable">React</li>
+                  <li class="editable">CSS</li>
+                  <li class="editable">Storybook</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- education -->
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Edit mode enabled</div>
+
+  <script>
+    $(function () {
+      var editing = false;
+
+      function showToast(message) {
+        $("#toast").stop(true, true).text(message).fadeIn(160).delay(1300).fadeOut(220);
+      }
+
+      $("#themeToggle").on("click", function () {
+        $("body").toggleClass("dark");
+        showToast($("body").hasClass("dark") ? "Dark theme enabled" : "Light theme enabled");
+      });
+
+      $("#editToggle").on("click", function () {
+        editing = !editing;
+        $("body").toggleClass("editing", editing);
+        $(".editable").attr("contenteditable", editing);
+        $(this).text(editing ? "Done" : "Edit");
+        showToast(editing ? "Edit mode enabled" : "Changes kept on page");
+      });
+
+      $("#printBtn").on("click", function () {
+        window.print();
+      });
+
+      $(".nav a").on("click", function () {
+        $(".nav a").removeClass("active");
+        $(this).addClass("active");
+      });
+
+      $(window).on("scroll", function () {
+        var scrollTop = $(window).scrollTop();
+        $(".section").each(function () {
+          var sectionTop = $(this).offset().top - 120;
+          var id = $(this).attr("id");
+          if (scrollTop >= sectionTop) {
+            $(".nav a").removeClass("active");
+            $('.nav a[href="#' + id + '"]').addClass("active");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
